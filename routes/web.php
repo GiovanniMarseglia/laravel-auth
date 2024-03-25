@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProjectController as ProjectController;
+use App\Http\Controllers\Dashboard\ProjectController as ProjectController;
 
 
 /*
@@ -25,11 +25,15 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 
 
-Route::middleware(['auth','verified'])->name('admin.')->prefix('admin')->group(function () {
-    Route::get('/dashboard', function () { return view('layouts.dashboard'); });
+Route::middleware('auth')
+    ->prefix('dashboard')
+    ->name('dashboard.')
+    ->group(function () {
 
-    Route::get('/settings', [ProjectController::class, '']);
-    Route::get('/profile', [ProjectController::class, '']);
+    //localhost:8000/dashboard/posts
+    Route::resource('project', ProjectController::class);
+
 });
+
 
 

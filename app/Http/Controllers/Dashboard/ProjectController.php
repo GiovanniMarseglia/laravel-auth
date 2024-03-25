@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Dashboard;
 
+use App\Http\Controllers\Controller;
 use App\Models\Project;
 use Illuminate\Http\Request;
 
@@ -20,7 +21,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        //
+        return view('layouts.create');
     }
 
     /**
@@ -28,7 +29,29 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'title' => ['required', 'max:255'],
+            'description' => ['required'],
+            'thumb' => ['required'],
+            'date' => ['required']
+        ]);
+
+
+        $formData = $request->all();
+
+        $slug = Project::generateSlug($request->title);
+        $formData['slug'] = $slug;
+
+        $newProject = new Project();
+        $newProject->fill($formData);
+
+
+        $newProject->save();
+
+
+        return redirect()->route('home');
+
+
     }
 
     /**
@@ -36,7 +59,7 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-        //
+        return view("layouts.single",compact("project"));
     }
 
     /**
