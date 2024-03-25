@@ -67,15 +67,26 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        //
+        return view("layouts.edit",compact("project"));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Project $project)
+    public function update(Request $request, string $id)
     {
-        //
+        $validatedData = $request->validate([
+            'title' => ['required', 'max:255'],
+            'description' => ['required'],
+            'thumb' => ['required'],
+            'date' => ['required']
+        ]);
+
+
+        $formData = $request->all();
+        $project = project::find($id);
+        $project->update($formData);
+        return redirect()->route("dashboard.project.update",compact('project'));
     }
 
     /**

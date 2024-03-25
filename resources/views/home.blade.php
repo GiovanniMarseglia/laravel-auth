@@ -25,6 +25,7 @@
 
                 <span>{{$element['date']}}</span>
                 <a class="btn btn-primary" href="{{ route('dashboard.project.show', $element->id) }}">Dettagli</a>
+                <a class="btn btn-primary" href="{{ route('dashboard.project.edit', $element->id) }}">Modifica</a>
             </div>
         @endforeach
 

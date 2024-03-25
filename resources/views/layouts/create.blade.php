@@ -17,7 +17,7 @@
 
             <div class="d-flex flex-column">
                 <label for="description">Descrizione</label>
-                <input type="text" name="description" id="description">
+                <textarea name="description" id="description" cols="30" rows="10"></textarea>
             </div>
 
             <div class="d-flex flex-column">
@@ -29,7 +29,7 @@
                 <label for="thumb">Data</label>
                 <input type="date" name="date" id="date">
             </div>
-            <button class="submit"></button>
+            <button class="submit">Invio</button>
 
         </form>
 
