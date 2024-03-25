@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProjectController as ProjectController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +22,14 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+
+Route::middleware(['auth','verified'])->name('admin.')->prefix('admin')->group(function () {
+    Route::get('/dashboard', function () { return view('layouts.dashboard'); });
+
+    Route::get('/settings', [ProjectController::class, '']);
+    Route::get('/profile', [ProjectController::class, '']);
+});
+
+
