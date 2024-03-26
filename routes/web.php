@@ -32,6 +32,7 @@ Route::middleware('auth')
 
     //localhost:8000/dashboard/posts
     Route::resource('project', ProjectController::class);
+    // ->parameters(['project'=>'post:slug']);
 
 });
 

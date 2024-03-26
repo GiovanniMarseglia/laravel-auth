@@ -33,13 +33,12 @@
 </div>
 
 
-<div class="container-fluid">
+<div class="container-fluid d-flex justify-content-center">
 
 
 
-    <a href="{{route('dashboard.project.create')}}">Aggiungi progetto</a>
-    <a href="">Visualizza tutti i progetti</a>
-    <a href="">Elimina Progett</a>
+    <a class="btn btn-primary" href="{{route('dashboard.project.create')}}">Aggiungi progetto</a>
+
 
 </div>
 @endsection
