@@ -7,6 +7,7 @@ use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
+
 class ProjectController extends Controller
 {
     /**
@@ -96,10 +97,27 @@ class ProjectController extends Controller
         ]);
 
 
+
         $formData = $request->all();
         $project = project::find($id);
+
+        if ($request->hasFile('thumb')) {
+            if( $project->thumb ){
+                Storage::delete('public/images/' . $project->thumb);
+            }
+
+
+            $image = $request->file('thumb');
+            $imageName = time() . '_' . $image->getClientOriginalName();
+            $path = $image->storeAs('public/images', $imageName);
+        }
+
+
+        $formData['thumb']=$imageName;
+
         $project->update($formData);
-        return redirect()->route("dashboard.project.update",compact('project'));
+
+        return redirect()->route("home",compact('project'));
     }
 
     /**
@@ -107,7 +125,11 @@ class ProjectController extends Controller
      */
     public function destroy(string $id)
     {
+
         $project = project::find($id);
+        if( $project->thumb ){
+            Storage::delete('public/images/' . $project->thumb);
+        }
         $project->delete();
         return redirect()->route('home');
     }

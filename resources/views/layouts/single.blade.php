@@ -7,6 +7,7 @@
 
     <h1>{{$project->title}}</h1>
     <p>{{$project->description}}</p>
+    <img src="{{ asset('storage/images/'.$project->thumb )}}" alt="">
     <span>{{$project->date}}</span>
 
     <form action="{{route('dashboard.project.destroy', $project->id)}}" method="POST">

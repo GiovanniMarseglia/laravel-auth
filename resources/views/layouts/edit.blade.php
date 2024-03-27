@@ -4,7 +4,7 @@
 
 
     <div class="container text-center">
-        <form class="d-flex flex-column align-items-center" action="{{route('dashboard.project.update', $project->id) }}" method="POST">
+        <form class="d-flex flex-column align-items-center" action="{{route('dashboard.project.update', $project->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <div class="d-flex flex-column w-50">
@@ -18,13 +18,27 @@
                 <textarea type="text" name="description" id="description" cols="100" rows="10">{{old('description') ?? $project->description}}</textarea>
             </div>
 
-            <div class="d-flex flex-column w-75">
-                <label for="thumb">immagine</label>
-                <input type="text" name="thumb" id="thumb" value="{{old('thumb') ?? $project->thumb}}">
+            @if ($project->thumb)
+
+            <div>
+                <figure>
+                    <img src="{{ asset('storage/images/'.$project->thumb) }}" alt="">
+                </figure>
             </div>
 
+            @endif
+
             <div class="d-flex flex-column">
-                <label for="thumb">Data</label>
+                <label for="thumb">immagine</label>
+                <input type="file" name="thumb" id="thumb">
+            </div>
+
+
+
+
+
+            <div class="d-flex flex-column">
+                <label for="date">Data</label>
                 <input type="date" name="date" id="date" value="{{old('date') ?? $project->date}}">
             </div>
 
