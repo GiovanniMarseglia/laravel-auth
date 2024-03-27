@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Models\Project;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProjectController extends Controller
 {
@@ -32,7 +33,7 @@ class ProjectController extends Controller
         $validatedData = $request->validate([
             'title' => ['required', 'max:255'],
             'description' => ['required'],
-            'thumb' => ['required'],
+            'thumb' => ['nullable'],
             'date' => ['required']
         ]);
 
@@ -42,8 +43,20 @@ class ProjectController extends Controller
         $slug = Project::generateSlug($request->title);
         $formData['slug'] = $slug;
 
+        if ($request->hasFile('thumb')) {
+            $image = $request->file('thumb');
+            $imageName = time() . '_' . $image->getClientOriginalName();
+            $path = $image->storeAs('public/images', $imageName);
+        }
+
+        // $request->image->storeAs('images', $imageName);
+
+
+
+
         $newProject = new Project();
         $newProject->fill($formData);
+        $newProject->thumb = $imageName;
 
 
         $newProject->save();
@@ -78,7 +91,7 @@ class ProjectController extends Controller
         $validatedData = $request->validate([
             'title' => ['required', 'max:255'],
             'description' => ['required'],
-            'thumb' => ['required'],
+            'thumb' => ['nullable'],
             'date' => ['required']
         ]);
 

@@ -6,7 +6,7 @@
 
         <h1>Crea</h1>
 
-        <form class="d-flex flex-column align-items-center" action="{{route('dashboard.project.store')}}" method="POST">
+        <form class="d-flex flex-column align-items-center" action="{{route('dashboard.project.store')}}" method="POST" enctype="multipart/form-data">
             @csrf
 
             <div class="d-flex flex-column">
@@ -22,13 +22,14 @@
 
             <div class="d-flex flex-column">
                 <label for="thumb">immagine</label>
-                <input type="text" name="thumb" id="thumb">
+                <input type="file" name="thumb" id="thumb">
             </div>
 
             <div class="d-flex flex-column">
-                <label for="thumb">Data</label>
+                <label for="date">Data</label>
                 <input type="date" name="date" id="date">
             </div>
+
             <button class="submit">Invio</button>
 
         </form>

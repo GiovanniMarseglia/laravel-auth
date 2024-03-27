@@ -20,7 +20,7 @@
                     <img src="{{$element['thumb']}}" alt="">
                 </figure> --}}
                 <figure>
-                    <img src="https://picsum.photos/200" alt="">
+                    <img src="{{ asset('storage/images/'.$element['thumb']) }}" alt="">
                 </figure>
 
                 <span>{{$element['date']}}</span>
